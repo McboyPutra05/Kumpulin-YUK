@@ -1,0 +1,53 @@
+// article.ts
+// ----------
+// TypeScript interface definitions untuk data artikel.
+// Pastikan ini selalu sinkron dengan schema respons di backend (ArticleResponse).
+
+export interface Article {
+  id: string;
+  title: string;
+  url: string;
+  source: ArticleSource;
+  published_date: string; // Format: "YYYY-MM-DD"
+  summary: string | null;
+  is_summarized: boolean;
+  generated_article: string | null;
+  is_generated: boolean;
+  scraped_at: string; // ISO 8601 datetime string
+}
+
+export type ArticleSource = "kompas" | "detik" | "tempo";
+
+export interface ArticleListResponse {
+  articles: Article[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export interface ScrapeRequest {
+  date: string; // Format: "YYYY-MM-DD"
+  sources: ArticleSource[];
+}
+
+export interface ScrapeStatusResponse {
+  task_id: string;
+  status: "pending" | "running" | "completed" | "failed";
+  message: string;
+  articles_scraped: number;
+  articles_summarized: number;
+}
+
+export interface GenerateArticleResponse {
+  article_id: string;
+  status: "success" | "failed";
+  message: string;
+  generated_article: string | null;
+}
+
+export interface ArticleFilters {
+  date: Date | undefined;
+  source: ArticleSource | "all";
+  page: number;
+}
