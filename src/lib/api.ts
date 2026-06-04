@@ -9,6 +9,7 @@ import {
   ArticleFilters,
   ArticleListResponse,
   GenerateArticleResponse,
+  SummarizeArticleResponse,
   ScrapeRequest,
   ScrapeStatusResponse,
 } from "@/types/article";
@@ -70,7 +71,7 @@ export async function fetchArticles(
   }
 
   const queryString = params.toString();
-  const endpoint = `/articles${queryString ? `?${queryString}` : ""}`;
+  const endpoint = `/articles/${queryString ? `?${queryString}` : ""}`;
 
   return apiFetch<ArticleListResponse>(endpoint);
 }
@@ -108,6 +109,18 @@ export async function generateArticle(
   articleId: string
 ): Promise<GenerateArticleResponse> {
   return apiFetch<GenerateArticleResponse>(`/articles/${articleId}/generate`, {
+    method: "POST",
+  });
+}
+
+/**
+ * Meringkas satu artikel secara manual menggunakan Gemini AI.
+ * @param articleId - MongoDB ObjectId artikel yang akan diringkas
+ */
+export async function summarizeArticle(
+  articleId: string
+): Promise<SummarizeArticleResponse> {
+  return apiFetch<SummarizeArticleResponse>(`/articles/${articleId}/summarize`, {
     method: "POST",
   });
 }

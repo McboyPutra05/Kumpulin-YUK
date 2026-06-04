@@ -10,6 +10,7 @@ export interface Article {
   source: ArticleSource;
   published_date: string; // Format: "YYYY-MM-DD"
   summary: string | null;
+  tags: string[];          // 4 tag SEO yang merepresentasikan isi artikel
   is_summarized: boolean;
   generated_article: string | null;
   is_generated: boolean;
@@ -44,6 +45,14 @@ export interface GenerateArticleResponse {
   status: "success" | "failed";
   message: string;
   generated_article: string | null;
+}
+
+export interface SummarizeArticleResponse {
+  article_id: string;
+  status: "success" | "already_summarized" | "failed";
+  message: string;
+  summary: string | null;
+  tags: string[] | null;
 }
 
 export interface ArticleFilters {
