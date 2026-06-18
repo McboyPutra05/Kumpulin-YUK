@@ -39,7 +39,9 @@ export function getSourceLabel(source: ArticleSource): string {
   const labels: Record<ArticleSource, string> = {
     kompas: "Kompas.com",
     detik: "Detik.com",
-    tempo: "Tempo.co",
+    cnnindonesia: "CNN Indonesia",
+    liputan6: "Liputan6",
+    kumparan: "Kumparan",
   };
   return labels[source] || source;
 }
@@ -52,7 +54,9 @@ export function getSourceColor(source: ArticleSource): string {
   const colors: Record<ArticleSource, string> = {
     kompas: "bg-red-500/20 text-red-400 border-red-500/30",
     detik: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-    tempo: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+    cnnindonesia: "bg-red-700/20 text-red-600 border-red-700/30",
+    liputan6: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+    kumparan: "bg-teal-500/20 text-teal-400 border-teal-500/30",
   };
   return colors[source] || "bg-gray-500/20 text-gray-400 border-gray-500/30";
 }

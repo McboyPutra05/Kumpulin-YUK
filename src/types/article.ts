@@ -17,7 +17,7 @@ export interface Article {
   scraped_at: string; // ISO 8601 datetime string
 }
 
-export type ArticleSource = "kompas" | "detik" | "tempo";
+export type ArticleSource = "kompas" | "detik" | "cnnindonesia" | "liputan6" | "kumparan";
 
 export interface ArticleListResponse {
   articles: Article[];

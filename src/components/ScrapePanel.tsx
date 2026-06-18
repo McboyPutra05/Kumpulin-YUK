@@ -22,12 +22,14 @@ interface ScrapePanelProps {
   onScrapeDone?: () => void;
 }
 
-const ALL_SOURCES: ArticleSource[] = ["kompas", "detik", "tempo"];
+const ALL_SOURCES: ArticleSource[] = ["kompas", "detik", "cnnindonesia", "liputan6", "kumparan"];
 
 const SOURCE_LABELS: Record<ArticleSource, string> = {
   kompas: "Kompas.com",
   detik: "Detik.com",
-  tempo: "Tempo.co",
+  cnnindonesia: "CNN Indonesia",
+  liputan6: "Liputan6",
+  kumparan: "Kumparan",
 };
 
 export function ScrapePanel({ defaultDate, onScrapeDone }: ScrapePanelProps) {

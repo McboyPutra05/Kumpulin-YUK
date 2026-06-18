@@ -17,7 +17,9 @@ const SOURCES: Array<{ value: ArticleSource | "all"; label: string }> = [
   { value: "all", label: "Semua Sumber" },
   { value: "kompas", label: "Kompas.com" },
   { value: "detik", label: "Detik.com" },
-  { value: "tempo", label: "Tempo.co" },
+  { value: "cnnindonesia", label: "CNN Indonesia" },
+  { value: "liputan6", label: "Liputan6" },
+  { value: "kumparan", label: "Kumparan" },
 ];
 
 export function SourceFilter({ selectedSource, onSourceChange }: SourceFilterProps) {
