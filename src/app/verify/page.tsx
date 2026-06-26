@@ -123,13 +123,17 @@ function VerifyContent() {
               className="w-full text-center text-4xl tracking-[0.75em] font-mono py-5 bg-gray-50/50 dark:bg-gray-950/50 border border-gray-200 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all duration-200 text-gray-900 dark:text-white uppercase shadow-inner"
               placeholder="••••••"
               value={code}
-              onChange={(e) => setCode(e.target.value)}
+              onChange={(e) => {
+                setCode(e.target.value);
+                setError(""); // Clear error when typing
+                if (success.includes("dikirim")) setSuccess(""); // Clear resend success when typing
+              }}
             />
           </div>
 
           <button
             type="submit"
-            disabled={isLoading || code.length !== 6 || !!success}
+            disabled={isLoading || code.length !== 6 || success.includes("berhasil")}
             className="w-full mt-8 py-3.5 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0"
           >
             {isLoading ? <Loader2 size={20} className="animate-spin" /> : (
