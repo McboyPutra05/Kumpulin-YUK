@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { KeyRound, Loader2, ArrowRight, RefreshCcw } from "lucide-react";
+import { Mail, Loader2, ArrowRight, RefreshCcw, CheckCircle } from "lucide-react";
 
 function VerifyContent() {
   const router = useRouter();
@@ -60,7 +60,7 @@ function VerifyContent() {
     setError("");
     setSuccess("");
     setIsResending(true);
-    
+
     try {
       const res = await fetch("http://localhost:8000/api/v1/auth/resend-code", {
         method: "POST",
@@ -83,76 +83,103 @@ function VerifyContent() {
   };
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[100px] pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="w-full max-w-md">
+        {/* Card */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-10">
 
-      <div className="w-full max-w-md p-8 sm:p-10 bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-800/50 relative z-10 transition-all duration-300">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-purple-600 text-white mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
-            <KeyRound size={28} strokeWidth={2.5} />
+          {/* Icon & Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-blue-600 text-white mb-5">
+              <Mail size={24} />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Cek Email Anda</h1>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Kami mengirimkan kode 6 digit ke
+            </p>
+            <p className="text-sm font-semibold text-gray-800 mt-1 bg-gray-100 px-3 py-1.5 rounded-lg inline-block">
+              {emailParam}
+            </p>
           </div>
-          <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-2 tracking-tight">
-            Verifikasi Email
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm font-medium leading-relaxed mt-2">
-            Masukkan 6 digit kode yang telah kami kirimkan ke <br />
-            <span className="font-bold text-gray-900 dark:text-white px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded-md ml-1 inline-block mt-1">{emailParam}</span>
-          </p>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-5 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm text-center">
+              {error}
+            </div>
+          )}
+
+          {/* Success Message */}
+          {success && (
+            <div className="mb-5 px-4 py-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm text-center flex items-center justify-center gap-2">
+              <CheckCircle size={16} />
+              {success}
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2 text-center">
+                Kode Verifikasi
+              </label>
+              <input
+                type="text"
+                required
+                maxLength={6}
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                className="w-full text-center text-3xl tracking-[0.6em] font-mono py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-gray-900"
+                placeholder="------"
+                value={code}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "");
+                  setCode(val);
+                  setError("");
+                  if (success.includes("dikirim")) setSuccess("");
+                }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading || code.length !== 6 || success.includes("berhasil")}
+              className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {isLoading ? (
+                <Loader2 size={18} className="animate-spin" />
+              ) : (
+                <>
+                  Verifikasi Akun
+                  <ArrowRight size={16} />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Resend */}
+          <div className="mt-6 pt-6 border-t border-gray-100 text-center">
+            <p className="text-sm text-gray-500 mb-2">Belum menerima kode?</p>
+            <button
+              type="button"
+              onClick={handleResend}
+              disabled={isResending || success.includes("berhasil")}
+              className="text-sm font-semibold text-blue-600 hover:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center gap-1.5 transition-colors"
+            >
+              {isResending ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <RefreshCcw size={14} />
+              )}
+              Kirim Ulang Kode
+            </button>
+          </div>
         </div>
 
-        {error && (
-          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl text-red-600 dark:text-red-400 text-sm text-center font-medium animate-in fade-in slide-in-from-top-2">
-            {error}
-          </div>
-        )}
-
-        {success && (
-          <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-2xl text-green-600 dark:text-green-400 text-sm text-center font-medium animate-in fade-in slide-in-from-top-2">
-            {success}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="group relative">
-            <input
-              type="text"
-              required
-              maxLength={6}
-              className="w-full text-center text-4xl tracking-[0.75em] font-mono py-5 bg-gray-50/50 dark:bg-gray-950/50 border border-gray-200 dark:border-gray-800 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all duration-200 text-gray-900 dark:text-white uppercase shadow-inner"
-              placeholder="••••••"
-              value={code}
-              onChange={(e) => {
-                setCode(e.target.value);
-                setError(""); // Clear error when typing
-                if (success.includes("dikirim")) setSuccess(""); // Clear resend success when typing
-              }}
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isLoading || code.length !== 6 || success.includes("berhasil")}
-            className="w-full mt-8 py-3.5 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 transform hover:-translate-y-0.5 active:translate-y-0"
-          >
-            {isLoading ? <Loader2 size={20} className="animate-spin" /> : (
-              <>Verifikasi Akun <ArrowRight size={18} className="ml-1" /></>
-            )}
-          </button>
-        </form>
-
-        <div className="mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-800/50 text-center">
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">Belum menerima kode?</p>
-          <button 
-            onClick={handleResend}
-            disabled={isResending || !!success}
-            className="text-blue-600 dark:text-blue-400 hover:text-purple-500 font-semibold transition-colors inline-flex items-center gap-2 text-sm disabled:opacity-50 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-4 py-2 rounded-full"
-          >
-            {isResending ? <Loader2 size={16} className="animate-spin" /> : <RefreshCcw size={16} />}
-            Kirim Ulang Kode
-          </button>
-        </div>
+        {/* Footer note */}
+        <p className="text-center text-xs text-gray-400 mt-4">
+          Kode berlaku selama <span className="font-medium">10 menit</span>. Periksa juga folder Spam.
+        </p>
       </div>
     </div>
   );
@@ -160,7 +187,13 @@ function VerifyContent() {
 
 export default function VerifyPage() {
   return (
-    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center"><Loader2 className="animate-spin text-blue-500" size={32} /></div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <Loader2 className="animate-spin text-blue-600" size={28} />
+        </div>
+      }
+    >
       <VerifyContent />
     </Suspense>
   );
