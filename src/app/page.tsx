@@ -49,26 +49,15 @@ export default function LandingPage() {
             <a href="#cara-kerja" className="hover:text-gray-900 transition-colors">Cara Kerja</a>
           </div>
           <div className="flex items-center gap-3">
-            {user ? (
-              <Link
-                href="/dashboard"
-                className="text-sm font-semibold bg-[#1a56db] hover:bg-[#1a45c0] text-white px-4 py-2 rounded-lg transition-colors"
-              >
-                Ke Dashboard →
-              </Link>
-            ) : (
-              <>
-                <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-                  Masuk
-                </Link>
-                <Link
-                  href="/register"
-                  className="text-sm font-semibold bg-[#1a56db] hover:bg-[#1a45c0] text-white px-4 py-2 rounded-lg transition-colors"
-                >
-                  Coba Gratis →
-                </Link>
-              </>
-            )}
+            <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              Masuk
+            </Link>
+            <Link
+              href="/login"
+              className="text-sm font-semibold bg-[#1a56db] hover:bg-[#1a45c0] text-white px-4 py-2 rounded-lg transition-colors"
+            >
+              Daftar Sekarang
+            </Link>
           </div>
         </div>
       </nav>
@@ -92,29 +81,18 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-wrap gap-3 mb-8">
-              {user ? (
-                <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-2 bg-[#1a3a5c] hover:bg-[#122a45] text-white font-bold px-6 py-3.5 rounded-full text-sm transition-colors"
-                >
-                  Buka Dashboard
-                </Link>
-              ) : (
-                <>
-                  <Link
-                    href="/register"
-                    className="inline-flex items-center gap-2 bg-[#1a3a5c] hover:bg-[#122a45] text-white font-bold px-6 py-3.5 rounded-full text-sm transition-colors"
-                  >
-                    Mulai Baca Sekarang
-                  </Link>
-                  <Link
-                    href="/login"
-                    className="inline-flex items-center gap-2 border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold px-6 py-3.5 rounded-full text-sm transition-colors"
-                  >
-                    Sudah punya akun?
-                  </Link>
-                </>
-              )}
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-2 bg-[#1a3a5c] hover:bg-[#122a45] text-white font-bold px-6 py-3.5 rounded-full text-sm transition-colors"
+              >
+                Daftar Sekarang
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-2 border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold px-6 py-3.5 rounded-full text-sm transition-colors"
+              >
+                Sudah punya akun?
+              </Link>
             </div>
 
             {/* Social proof */}
@@ -493,7 +471,7 @@ export default function LandingPage() {
           <p className="text-gray-500">© 2025 KumpulinYUK! — Agregator Berita Indonesia</p>
           <div className="flex gap-6 text-gray-500">
             <Link href="/login" className="hover:text-white transition-colors">Masuk</Link>
-            <Link href="/register" className="hover:text-white transition-colors">Daftar</Link>
+            <Link href="/login" className="hover:text-white transition-colors">Daftar</Link>
             <a href="#harga" className="hover:text-white transition-colors">Harga</a>
           </div>
         </div>
