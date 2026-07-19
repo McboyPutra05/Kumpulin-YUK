@@ -43,7 +43,7 @@ export default function LoginPage() {
 
       // Berhasil login
       login(data.access_token, data.user);
-      router.push("/"); // Redirect ke dashboard/home
+      router.push("/dashboard"); // Redirect ke dashboard
     } catch (err: any) {
       setError(err.message);
     } finally {
