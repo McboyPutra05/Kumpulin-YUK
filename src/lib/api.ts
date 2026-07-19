@@ -66,6 +66,13 @@ export async function fetchArticles(
   if (filters.source && filters.source !== "all") {
     params.append("source", filters.source);
   }
+  if (filters.category && filters.category !== "all") {
+    if (Array.isArray(filters.category)) {
+      filters.category.forEach((cat) => params.append("category", cat));
+    } else {
+      params.append("category", filters.category as string);
+    }
+  }
   if (filters.page) {
     params.append("page", String(filters.page));
   }
@@ -122,5 +129,17 @@ export async function summarizeArticle(
 ): Promise<SummarizeArticleResponse> {
   return apiFetch<SummarizeArticleResponse>(`/articles/${articleId}/summarize`, {
     method: "POST",
+  });
+}
+
+/**
+ * Menghapus satu artikel berdasarkan ID.
+ * @param articleId - MongoDB ObjectId artikel yang akan dihapus
+ */
+export async function deleteArticle(
+  articleId: string
+): Promise<{ status: string; message: string }> {
+  return apiFetch<{ status: string; message: string }>(`/articles/${articleId}`, {
+    method: "DELETE",
   });
 }
