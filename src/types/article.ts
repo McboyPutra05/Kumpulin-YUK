@@ -8,6 +8,7 @@ export interface Article {
   title: string;
   url: string;
   source: ArticleSource;
+  category: ArticleCategory | null;
   published_date: string; // Format: "YYYY-MM-DD"
   summary: string | null;
   tags: string[];          // 4 tag SEO yang merepresentasikan isi artikel
@@ -18,6 +19,7 @@ export interface Article {
 }
 
 export type ArticleSource = "kompas" | "detik" | "cnnindonesia" | "liputan6" | "kumparan";
+export type ArticleCategory = "nasional" | "teknologi" | "olahraga" | "otomotif" | "ekonomi" | "hiburan" | "edukasi" | "travel" | "trending";
 
 export interface ArticleListResponse {
   articles: Article[];
@@ -30,6 +32,7 @@ export interface ArticleListResponse {
 export interface ScrapeRequest {
   date: string; // Format: "YYYY-MM-DD"
   sources: ArticleSource[];
+  category?: ArticleCategory[];
 }
 
 export interface ScrapeStatusResponse {
@@ -58,5 +61,6 @@ export interface SummarizeArticleResponse {
 export interface ArticleFilters {
   date: Date | undefined;
   source: ArticleSource | "all";
+  category: ArticleCategory[] | "all";
   page: number;
 }
