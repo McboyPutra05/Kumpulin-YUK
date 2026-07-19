@@ -71,18 +71,18 @@ export function ArticleList({ filters, onPageChange }: ArticleListProps) {
   return (
     <div>
       {/* Info jumlah artikel */}
-      <div className="flex items-center justify-between mb-6">
-        <p className="text-gray-600 dark:text-gray-400 text-sm">
+      <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-800">
+        <p className="text-slate-400 text-sm">
           Menampilkan{" "}
-          <span className="text-gray-900 dark:text-white font-medium">{data.articles.length}</span>{" "}
+          <span className="text-white font-medium">{data.articles.length}</span>{" "}
           dari{" "}
-          <span className="text-gray-900 dark:text-white font-medium">{data.total}</span> artikel
+          <span className="text-white font-medium">{data.total}</span> artikel
           {isFetching && (
-            <span className="ml-2 text-blue-500 dark:text-blue-400 text-xs">(Memperbarui...)</span>
+            <span className="ml-2 text-blue-400 text-xs">(Memperbarui...)</span>
           )}
         </p>
-        <span className="text-gray-500 text-xs">
-          Halaman {data.page} dari {data.total_pages}
+        <span className="text-slate-400 text-xs font-semibold tracking-wider uppercase">
+          Sortir: Terbaru
         </span>
       </div>
 
