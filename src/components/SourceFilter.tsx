@@ -24,27 +24,30 @@ const SOURCES: Array<{ value: ArticleSource | "all"; label: string }> = [
 
 export function SourceFilter({ selectedSource, onSourceChange }: SourceFilterProps) {
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      {SOURCES.map((source) => {
-        const isSelected = selectedSource === source.value;
-        return (
-          <button
-            key={source.value}
-            id={`source-filter-${source.value}`}
-            onClick={() => onSourceChange(source.value)}
-            className={cn(
-              "px-3.5 py-2 rounded-lg text-sm font-medium border transition-all",
-              isSelected
-                ? source.value === "all"
-                  ? "bg-blue-600 border-blue-500 text-white"
-                  : cn(getSourceColor(source.value as ArticleSource), "border-opacity-80")
-                : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-500 hover:text-gray-900 dark:hover:text-gray-200 shadow-sm dark:shadow-none"
-            )}
-          >
-            {source.label}
-          </button>
-        );
-      })}
+    <div className="flex flex-col w-full bg-slate-900 border border-slate-800 rounded-xl p-4">
+      <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-3">
+        Sumber Berita
+      </label>
+      <div className="flex items-center gap-2 flex-wrap">
+        {SOURCES.map((source) => {
+          const isSelected = selectedSource === source.value;
+          return (
+            <button
+              key={source.value}
+              id={`source-filter-${source.value}`}
+              onClick={() => onSourceChange(source.value)}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-xs font-medium border transition-all",
+                isSelected
+                  ? "bg-blue-500/20 border-blue-500/50 text-blue-400"
+                  : "bg-transparent border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-200"
+              )}
+            >
+              {source.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
