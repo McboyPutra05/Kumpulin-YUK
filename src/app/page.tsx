@@ -69,14 +69,14 @@ export default function LandingPage() {
           {/* Left: Text */}
           <div>
             <p className="text-sm font-bold text-[#1a56db] uppercase tracking-widest mb-5">
-              Coba Sekarang — Gratis
+              Sistem Agregator Berita
             </p>
             <h1 className="text-5xl md:text-6xl font-black text-gray-900 leading-[1.05] tracking-tight mb-6">
               Ubah cara kamu<br />
-              baca <em className="not-italic text-[#1a56db]">berita</em>
+              Membuat <em className="not-italic text-[#1a56db]">Berita</em>
             </h1>
             <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-md">
-              Dari Kompas sampai CNN Indonesia — semua berita terkumpul otomatis, diringkas oleh AI,
+              Dari Kompas sampai CNN Indonesia semua berita terkumpul otomatis, diringkas oleh AI,
               tersaji dalam satu dashboard yang rapi.
             </p>
 
@@ -158,18 +158,40 @@ export default function LandingPage() {
       </section>
 
       {/* ── LOGO / SOURCE STRIP ── */}
-      <section id="sumber" className="border-y border-gray-100 py-10 bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-7">
+      <section id="sumber" className="border-y border-gray-100 py-10 bg-white overflow-hidden relative">
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            animation: marquee 25s linear infinite;
+            display: flex;
+            width: max-content;
+          }
+        `}</style>
+        
+        <div className="max-w-5xl mx-auto px-6 mb-7 relative z-10">
+          <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest">
             Dikumpulkan dari portal berita terpercaya
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4">
-            {["Kompas", "Detik", "CNN Indonesia", "Liputan6", "Kumparan", "Tempo"].map((name) => (
-              <span key={name} className="text-base font-bold text-gray-300 hover:text-gray-600 transition-colors">
-                {name}
-              </span>
-            ))}
-          </div>
+        </div>
+
+        {/* Gradient Masks for smooth fading on edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+        <div className="flex animate-marquee items-center gap-16 md:gap-24 px-8">
+          {/* Repeat images 3 times for seamless infinite loop */}
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex items-center gap-16 md:gap-24">
+              <img src="/kompas.jpg" alt="Kompas" className="h-10 md:h-14 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+              <img src="/detik.png" alt="Detik" className="h-7 md:h-9 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+              <img src="/cnn.png" alt="CNN Indonesia" className="h-7 md:h-9 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+              <img src="/liputan6.png" alt="Liputan 6" className="h-7 md:h-9 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+              <img src="/kumparan.png" alt="Kumparan" className="h-7 md:h-9 object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+            </div>
+          ))}
         </div>
       </section>
 
